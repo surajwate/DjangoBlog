@@ -4,7 +4,8 @@ from django.views.generic import (
     ListView, 
     DetailView, 
     CreateView,
-    UpdateView
+    UpdateView,
+    DeleteView
     )
 from .models import Post
 
@@ -51,6 +52,17 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = '/blog' # redirect to home page after deleting a post
+
+    def test_func(self) -> bool | None:
+        # return super().test_func() and self.request.user == self.get_object().author
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
 
 def about(request):
     return render(request, 'blog/about.html', {'title':'About'})
