@@ -16,6 +16,9 @@ class PostListView(ListView):
     context_object_name = 'posts' # default is object_list
     ordering = ['-date_posted'] # '-' means reverse order
 
+class PostDetailView(DetailView):
+    model = Post
+
 
 def about(request):
     return render(request, 'blog/about.html', {'title':'About'})
