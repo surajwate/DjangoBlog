@@ -22,6 +22,7 @@ class PostListView(ListView):
     template_name = 'blog/home.html' # <app>/<model>_<viewtype>.html
     context_object_name = 'posts' # default is object_list
     ordering = ['-date_posted'] # '-' means reverse order
+    paginate_by = 5 # number of posts per page
 
 class PostDetailView(DetailView):
     model = Post
